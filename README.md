@@ -28,7 +28,7 @@ The components to store and lock terraform statefile
 
 | Name | Description | Optional |
 |------|-------------|:---:|
-| [backend-resources.tf][bs] | S3 bucket to store and DynamoDB table to lock terraform state  |  |
+| [backend-resources.tf][bs] | S3 bucket to store and DynamoDB table to lock terraform state  | Yes |
 
 
 **main_resources**
@@ -37,9 +37,9 @@ The components to implement the multi-tier app stacks
 
 | Name | Description | Optional |
 |------|-------------|:----:|
-| [providers.tf][edm] | Terrform remote backend state, AWS provider |  |
-| [ecs.tf][ede] | ECS Cluster, Service, Task Definition, Auto-scaling group, CloudWatch Log Group |  |
-| [alb.tf][edl] | ALB, Target Group |  |
+| [providers.tf] | Terrform remote backend state, AWS provider |  |
+| [ecs.tf] | ECS Cluster, Service, Task Definition, Auto-scaling group, CloudWatch Log Group |  |
+| [alb.tf] | ALB, Target Group |  |
 | [acm.tf][edn] | A public SSL certificate request from acm |  |
 | [variables.tf][edlhttp] | Variables | Yes |
 | [vpc.tf][edlhttps] | VPC, public and private subnets, route tables, IGW, NAT gateway |  |
