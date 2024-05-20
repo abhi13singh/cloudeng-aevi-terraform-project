@@ -18,12 +18,12 @@ terraform {
 
 provider "aws" {
   region = var.region
-  profile = "account_1_profile" # Add the profile for this first account
+  profile = "account_A_profile" # Add the named profile for this first account
 }
 provider "aws" {
   alias  = "remote"
   region = var.region
-  profile = "account_2_profile" # Add the profile for this second account
+  profile = "account_B_profile" # Add the named profile for this second account
 }
 
 # to get all AZs in the region

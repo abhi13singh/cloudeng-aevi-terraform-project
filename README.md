@@ -43,13 +43,65 @@ The components to implement the multi-tier app stacks
 | [acm.tf][edn] | A public SSL certificate request from acm |  |
 | [variables.tf][edlhttp] | Variables | Yes |
 | [vpc.tf][edlhttps] | VPC, public and private subnets, route tables, IGW, NAT gateway |  |
-| [dashboard.tf][edd] | CloudWatch dashboard: CPU, memory, and HTTP-related metrics | Yes |
-| [ecs-role.tf][edr] | IAM role and policies for ECS task execution  | Yes |
-| [cicd.tf][edc] | IAM user that can be used by CI/CD systems | Yes |
-| [autoscale-perf.tf][edap] | Performance-based auto scaling | Yes |
-| [autoscale-time.tf][edat] | Time-based auto scaling | Yes |
-| [logs-logzio.tf][edll] | Ship container logs to logz.io | Yes |
+| [rds.tf][edd] | cross-account RDS instance using an existing DB snapshot  | Yes |
+| [ecs-role.tf][edr] | IAM role and policies for ECS task execution  |  |
+| [s3.tf][edc] | S3 Bucket | Yes |
+| [route53.tf][edap] | NS Records set | Yes |
+| [outputs.tf][edat] | Get website url to access the dockerized app service | Yes |
+| [logs.tf][edll] | CloudWatch Log Groups, Log Metrics, Subscription filters for log messages | Yes |
 | [secretsmanager.tf][edsm] | Add a Secrets Manager secret with a CMK KMS key. Also gives app role and ECS task definition role access to read secrets from Secrets Manager | Yes |
-| [secrets-sidecar.tf][ssc] | Adds a task definition configuration for deploying your app along with a sidecar container that writes your secrets manager secret to a file. Note that this is dependent upon opting in to `secretsmanager.tf`. | Yes |
-| [ssm-parameters.tf][ssm] | Add a CMK KMS key for use with SSM Parameter Store. Also gives ECS task definition role access to read secrets from parameter store. | Yes |
+| [lambda.tf][ssc] | Lambda functions, IAM roles/policies to access/filter cloudwatch logs | Yes |
+| [peering.tf][ssm] | Add a CMK KMS key for use with SSM Parameter Store. Also gives ECS task definition role access to read secrets from parameter store. | Yes |
 | [ecs-event-stream.tf][ees] | Add an ECS event log dashboard | Yes |
+
+
+## **Assumptions**
+
+Following assumptions or arbitrary values have been used to avoid any cost, and considering that things like IAM, monitoring, security scanning and so on are taken care of at an Organisation level.
+
+1. **Domain name**: an arbitrary value to request a public SSL certificate from acm
+2. **Certificate arn**: assuming that a valid SSL certificate arn is being generated
+3. **db snapshot**: assuming we have a database snapshot from an existing DB in the AWS account B
+4. **container image**: an arbitrary Image URI, assuming thers is such an image stored in an ECR repo
+5. **secrets**: arbitrary named profile used for each AWS accounts, secretsmanager.tf file is blank, assuming such securities and secrecies being taken care of at an Organisation level
+
+
+## **Instructions to deploy the solution to a fresh AWS account**
+
+Before deploying the solution on a fresh AWS account, take care of the assumptions, as mentioned above.
+Also, the templates are designed to be customized, and the optional components, as mentioned above, can be replaced or tweaked as per specific project requirements.
+
+Also, note that the terraform configuration for backend-resources are in a different sub-folders, and it must be run before the main terraform configuration files are run, to create the remote backend resources first, and then configure it later.
+Keeping these points in mind, follow the instructions to deploy the solution:
+
+```
+# Move into the backend resource directory
+$ cd remote-state_resources
+
+# Sets up Terraform to run
+$ terraform init
+
+# format and validate the terraform configuration
+$ terraform fmt
+$ terraform validate
+
+# Executes the Terraform run
+$ terraform apply
+
+# Now, move into the main resources environment
+$ cd ../main_resources
+
+# Sets up Terraform to run
+$ terraform init
+
+# format and validate the terraform configuration
+$ terraform fmt
+$ terraform validate
+
+# Executes the Terraform run
+$ terraform apply
+```
+
+## **Future Considerations/Enhancements**
+
+1. deploy ELK stack and utilize its advanced machine learning based anomaly detection features for better log management
