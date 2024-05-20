@@ -21,3 +21,35 @@ The python scripts for both the lambda functions are saved in the same project d
 
 
 ## **Components**
+
+**remote-state_resources**
+
+The components to store and lock terraform statefile
+
+| Name | Description | Optional |
+|------|-------------|:---:|
+| [backend-resources.tf][bs] | S3 bucket to store and DynamoDB table to lock terraform state  |  |
+
+
+**main_resources**
+
+The components to implement the multi-tier app stacks
+
+| Name | Description | Optional |
+|------|-------------|:----:|
+| [providers.tf][edm] | Terrform remote backend state, AWS provider |  |
+| [ecs.tf][ede] | ECS Cluster, Service, Task Definition, Auto-scaling group, CloudWatch Log Group |  |
+| [alb.tf][edl] | ALB, Target Group |  |
+| [acm.tf][edn] | A public SSL certificate request from acm |  |
+| [variables.tf][edlhttp] | Variables | Yes |
+| [vpc.tf][edlhttps] | VPC, public and private subnets, route tables, IGW, NAT gateway |  |
+| [dashboard.tf][edd] | CloudWatch dashboard: CPU, memory, and HTTP-related metrics | Yes |
+| [ecs-role.tf][edr] | IAM role and policies for ECS task execution  | Yes |
+| [cicd.tf][edc] | IAM user that can be used by CI/CD systems | Yes |
+| [autoscale-perf.tf][edap] | Performance-based auto scaling | Yes |
+| [autoscale-time.tf][edat] | Time-based auto scaling | Yes |
+| [logs-logzio.tf][edll] | Ship container logs to logz.io | Yes |
+| [secretsmanager.tf][edsm] | Add a Secrets Manager secret with a CMK KMS key. Also gives app role and ECS task definition role access to read secrets from Secrets Manager | Yes |
+| [secrets-sidecar.tf][ssc] | Adds a task definition configuration for deploying your app along with a sidecar container that writes your secrets manager secret to a file. Note that this is dependent upon opting in to `secretsmanager.tf`. | Yes |
+| [ssm-parameters.tf][ssm] | Add a CMK KMS key for use with SSM Parameter Store. Also gives ECS task definition role access to read secrets from parameter store. | Yes |
+| [ecs-event-stream.tf][ees] | Add an ECS event log dashboard | Yes |
