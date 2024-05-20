@@ -14,4 +14,10 @@ The service is utilizing an RDS DB service, which is in a separate cluster in an
 Also, as a bonus, the project includes a solution which manages the application's logging messages ('non-frequent short INFO messages' and 'frequent long DEBUG messages'). It utilizes CloudWatch Log Groups, CloudWatch Log Metrics and Subscription filters for INFO and DEBUG messages. Its using two Lambda functions, with propser IAM roles/policies:
 1. info_processor --> for processing INFO messages for easy and frequent access
 2. debug_processor --> for processing DEBUG messages to store in S3 bucket
+
 The python scripts for both the lambda functions are saved in the same project directory.
+
+**NOTE:** The templates are used for managing infrastructure concerns only, and not for managing application concerns like deploying the actual application images and environment variables on top of this infrastructure.
+
+
+## **Components**
