@@ -28,7 +28,7 @@ The components to store and lock terraform statefile
 
 | Name | Description | Optional |
 |------|-------------|:---:|
-| [backend-resources.tf][bs] | S3 bucket to store and DynamoDB table to lock terraform state  | Yes |
+| [backend-resources.tf] | S3 bucket to store and DynamoDB table to lock terraform state  | Yes |
 
 
 **main_resources**
@@ -51,7 +51,7 @@ The components to implement the multi-tier app stacks
 | [logs.tf] | CloudWatch Log Groups, Log Metrics, Subscription filters for log messages | Yes |
 | [secretsmanager.tf] | Add a Secrets Manager secret, Gives app role and ECS task definition role access to read secrets from Secrets Manager | Yes |
 | [lambda.tf] | Lambda functions, IAM roles/policies to access/filter cloudwatch logs | Yes |
-| [peering.tf] | Connect cross-account VPCs |  |
+| [peering.tf] | Connect cross-account VPCs | Yes |
 
 
 ## **Assumptions**
