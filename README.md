@@ -40,19 +40,18 @@ The components to implement the multi-tier app stacks
 | [providers.tf] | Terrform remote backend state, AWS provider |  |
 | [ecs.tf] | ECS Cluster, Service, Task Definition, Auto-scaling group, CloudWatch Log Group |  |
 | [alb.tf] | ALB, Target Group |  |
-| [acm.tf][edn] | A public SSL certificate request from acm |  |
-| [variables.tf][edlhttp] | Variables | Yes |
-| [vpc.tf][edlhttps] | VPC, public and private subnets, route tables, IGW, NAT gateway |  |
-| [rds.tf][edd] | cross-account RDS instance using an existing DB snapshot  | Yes |
-| [ecs-role.tf][edr] | IAM role and policies for ECS task execution  |  |
-| [s3.tf][edc] | S3 Bucket | Yes |
-| [route53.tf][edap] | NS Records set | Yes |
-| [outputs.tf][edat] | Get website url to access the dockerized app service | Yes |
-| [logs.tf][edll] | CloudWatch Log Groups, Log Metrics, Subscription filters for log messages | Yes |
-| [secretsmanager.tf][edsm] | Add a Secrets Manager secret with a CMK KMS key. Also gives app role and ECS task definition role access to read secrets from Secrets Manager | Yes |
-| [lambda.tf][ssc] | Lambda functions, IAM roles/policies to access/filter cloudwatch logs | Yes |
-| [peering.tf][ssm] | Add a CMK KMS key for use with SSM Parameter Store. Also gives ECS task definition role access to read secrets from parameter store. | Yes |
-| [ecs-event-stream.tf][ees] | Add an ECS event log dashboard | Yes |
+| [acm.tf] | A public SSL certificate request from acm |  |
+| [variables.tf]| Variables | Yes |
+| [vpc.tf] | VPC, public and private subnets, route tables, IGW, NAT gateway |  |
+| [rds.tf] | cross-account RDS instance using an existing DB snapshot  | Yes |
+| [ecs-role.tf] | IAM role and policies for ECS task execution  |  |
+| [s3.tf] | S3 Bucket | Yes |
+| [route53.tf] | NS Records set | Yes |
+| [outputs.tf] | Get website url to access the dockerized app service | Yes |
+| [logs.tf] | CloudWatch Log Groups, Log Metrics, Subscription filters for log messages | Yes |
+| [secretsmanager.tf] | Add a Secrets Manager secret, Gives app role and ECS task definition role access to read secrets from Secrets Manager | Yes |
+| [lambda.tf] | Lambda functions, IAM roles/policies to access/filter cloudwatch logs | Yes |
+| [peering.tf] | Add a CMK KMS key for use with SSM Parameter Store. Also gives ECS task definition role access to read secrets from parameter store. |  |
 
 
 ## **Assumptions**
