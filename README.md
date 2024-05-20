@@ -51,7 +51,7 @@ The components to implement the multi-tier app stacks
 | [logs.tf] | CloudWatch Log Groups, Log Metrics, Subscription filters for log messages | Yes |
 | [secretsmanager.tf] | Add a Secrets Manager secret, Gives app role and ECS task definition role access to read secrets from Secrets Manager | Yes |
 | [lambda.tf] | Lambda functions, IAM roles/policies to access/filter cloudwatch logs | Yes |
-| [peering.tf] | Add a CMK KMS key for use with SSM Parameter Store. Also gives ECS task definition role access to read secrets from parameter store. |  |
+| [peering.tf] | Connect cross-account VPCs |  |
 
 
 ## **Assumptions**

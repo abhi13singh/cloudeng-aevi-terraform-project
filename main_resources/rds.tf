@@ -50,8 +50,8 @@ module "security_group" {
       from_port   = 3306
       to_port     = 3306
       protocol    = "tcp"
-      description = "the rds db access from within VPC"
-      cidr_blocks = module.vpc.vpc_cidr_block
+      description = "the rds db access from within VPC, and from app VPC"
+      cidr_blocks = [var.vpc_cidr, var.b_vpc_cidr]
     },
   ]
 

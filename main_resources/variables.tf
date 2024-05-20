@@ -86,3 +86,21 @@ variable "record_name" {
   type        = string
   default     = "WWW"
 }
+
+# cross account vpc peering variables
+variable "b_vpc_id" {
+  description = "vpc id of the peer VPC in AWS account B"
+  type        = string
+}
+
+variable "b_owner_id" {
+  description = "AWS Account id of the AWS account B"
+  type        = string
+}
+
+variable "b_vpc_cidr" {
+  type        = string
+  description = "This defines the size of the vpc in Account B"
+  default     = "10.0.0.0/16"
+}
+

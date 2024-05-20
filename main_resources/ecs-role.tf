@@ -46,6 +46,18 @@ data "aws_iam_policy_document" "ecs_task_execution_policy_document" {
       "arn:aws:s3:::aevi-test-env-file-bucket"
     ]
   }
+
+  statement {
+    actions    = [
+      "rds:DescribeDBClusters",
+      "rds:DescribeDBInstances",
+      "rds:Connect"
+    ]
+
+    resources = [
+      "arn:aws:rds-db:us-east-1:account_B_profile:dbuser:<db-cluster>/<db-user>"
+    ]
+  }
 }
 
 # create iam policy
