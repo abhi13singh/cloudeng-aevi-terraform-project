@@ -2,7 +2,7 @@
 A set of Terraform templates used for provisioning a multi-tier Dockerized API service stacks on AWS ECS Fargate.
 
 **A high-level architecture diagram of the project**
-![Project_architecture_v2](https://github.com/abhi13singh/cloudeng-aevi-terraform-project/assets/159575057/9ddb5055-9177-41df-b0f2-aeaa834403dc)
+![Project_architecture_v2](https://github.com/abhi13singh/cloudeng-aevi-terraform-project/assets/159575057/1495c775-5f91-42a8-a4da-ecbfa09adca4)
 
 In this project, terraform templates have been created to design and implement a secure and scalable infrastructure to expose a Dockerized API service.
 
