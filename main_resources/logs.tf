@@ -9,7 +9,7 @@ resource "aws_cloudwatch_log_group" "debug_log_group" {
   retention_in_days = 30
 }
 
-# create cloudWatch metric filters
+# create cloudWatch log metrics filters
 resource "aws_cloudwatch_log_metric_filter" "info_filter" {
   name           = "InfoMessages"
   log_group_name = aws_cloudwatch_log_group.log_group.name
@@ -34,17 +34,17 @@ resource "aws_cloudwatch_log_metric_filter" "debug_filter" {
   }
 }
 
-# Create cloudwatch log subscriptions to route logs to the appropriate Lambda functions
+# Create cloudwatch log subscriptions filters to route logs to the appropriate Lambda functions
 resource "aws_cloudwatch_log_subscription_filter" "info_subscription" {
   name            = "InfoSubscription"
-  log_group_name  = aws_cloudwatch_log_group.log_group.name
+  log_group_name  = aws_cloudwatch_log_group.info_log_group.name
   filter_pattern  = "{ $.level = \"INFO\" }"
   destination_arn = aws_lambda_function.info_processor.arn
 }
 
 resource "aws_cloudwatch_log_subscription_filter" "debug_subscription" {
   name            = "DebugSubscription"
-  log_group_name  = aws_cloudwatch_log_group.log_group.name
+  log_group_name  = aws_cloudwatch_log_group.debug_log_group.name
   filter_pattern  = "{ $.level = \"DEBUG\" }"
   destination_arn = aws_lambda_function.debug_processor.arn
 }
