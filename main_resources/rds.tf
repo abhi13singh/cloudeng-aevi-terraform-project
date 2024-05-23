@@ -76,3 +76,80 @@ resource "aws_db_instance" "database_instance" {
   vpc_security_group_ids = [module.security_group.security_group_id]
 }
 
+# create an IAM role in this AWS account with a trust policy allowing Account A to assume this role.
+resource "aws_iam_role" "cross_account_rds_access" {
+  provider = aws.account_b
+  name     = "cross_account_rds_access"
+
+  assume_role_policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Effect = "Allow"
+        Action = "sts:AssumeRole"
+        Principal = {
+          AWS = "arn:aws:iam::<account_a_id>:devops_sysadmin"
+        }
+      }
+    ]
+  })
+}
+
+# create policies to be attached to this role that allows full access to use the RDS data APIs, secret store APIs for RDS database credentials, and DB console query management APIs to execute SQL statements on Aurora Serverless clusters in this AWS account
+resource "aws_iam_policy" "rds_access_policy" {
+  provider = aws.account_b
+  name     = "rds_access_policy"
+
+  policy = jsonencode({
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "SecretsManagerDbCredentialsAccess",
+            "Effect": "Allow",
+            "Action": [
+                "secretsmanager:GetSecretValue",
+                "secretsmanager:PutResourcePolicy",
+                "secretsmanager:PutSecretValue",
+                "secretsmanager:DeleteSecret",
+                "secretsmanager:DescribeSecret",
+                "secretsmanager:TagResource"
+            ],
+            "Resource": "arn:aws:secretsmanager:*:*:secret:rds-db-credentials/*"
+        },
+        {
+            "Sid": "RDSDataServiceAccess",
+            "Effect": "Allow",
+            "Action": [
+                "dbqms:CreateFavoriteQuery",
+                "dbqms:DescribeFavoriteQueries",
+                "dbqms:UpdateFavoriteQuery",
+                "dbqms:DeleteFavoriteQueries",
+                "dbqms:GetQueryString",
+                "dbqms:CreateQueryHistory",
+                "dbqms:DescribeQueryHistory",
+                "dbqms:UpdateQueryHistory",
+                "dbqms:DeleteQueryHistory",
+                "rds-data:ExecuteSql",
+                "rds-data:ExecuteStatement",
+                "rds-data:BatchExecuteStatement",
+                "rds-data:BeginTransaction",
+                "rds-data:CommitTransaction",
+                "rds-data:RollbackTransaction",
+                "secretsmanager:CreateSecret",
+                "secretsmanager:ListSecrets",
+                "secretsmanager:GetRandomPassword",
+                "tag:GetResources"
+            ],
+            "Resource": "*"
+        }
+    ]
+  })
+}
+
+# attache the policy to the role
+resource "aws_iam_role_policy_attachment" "attach_rds_access_policy" {
+  provider = aws.account_b
+  role     = aws_iam_role.cross_account_rds_access.name
+  policy_arn = aws_iam_policy.rds_access_policy.arn
+}
+

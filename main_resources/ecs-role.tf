@@ -14,6 +14,7 @@ data "aws_iam_policy_document" "assume_role_policy" {
 # adding policy statement for ecs service to get app image from ecr, create cloudwatch logs
 # adding policy statement for ecs service to read files from S3 bucket named 'aevi-test-env-file-bucket'
 data "aws_iam_policy_document" "ecs_task_execution_policy_document" {
+  # polcies to access and get container image from the ecr repo... and to create cloudwatch log stream and events
   statement {
     actions = [
       "ecr:GetAuthorizationToken",
@@ -26,7 +27,7 @@ data "aws_iam_policy_document" "ecs_task_execution_policy_document" {
 
     resources = ["*"]
   }
-
+# policies to access the s3 bucket object
   statement {
     actions = [
       "s3:GetObject"
@@ -36,7 +37,7 @@ data "aws_iam_policy_document" "ecs_task_execution_policy_document" {
       "arn:aws:s3:::aevi-test-env-file-bucket/*"
     ]
   }
-
+# policies to get the s3 bucket location
   statement {
     actions    = [
       "s3:GetBucketLocation"
@@ -46,16 +47,14 @@ data "aws_iam_policy_document" "ecs_task_execution_policy_document" {
       "arn:aws:s3:::aevi-test-env-file-bucket"
     ]
   }
-
+# policies to assume the role created in Account B where RDS DB is hosted
   statement {
     actions    = [
-      "rds:DescribeDBClusters",
-      "rds:DescribeDBInstances",
-      "rds:Connect"
+      "sts:AssumeRole"
     ]
 
     resources = [
-      "arn:aws:rds-db:us-east-1:account_B_profile:dbuser:<db-cluster>/<db-user>"
+      "arn:aws:iam::<account_b_id>:role/cross_account_rds_access"
     ]
   }
 }
