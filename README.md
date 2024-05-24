@@ -74,6 +74,7 @@ Also, note that the terraform configuration for backend-resources are in a diffe
 Keeping these points in mind, follow the instructions to deploy the solution:
 
 ```
+**Create the terraform remote backend resources**
 # Move into the backend resource directory
 $ cd remote-state_resources
 
@@ -87,6 +88,7 @@ $ terraform validate
 # Executes the Terraform run
 $ terraform apply
 
+**Create the main resources**
 # Now, move into the main resources environment
 $ cd ../main_resources
 
