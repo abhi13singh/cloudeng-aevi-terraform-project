@@ -2,6 +2,7 @@
 A set of Terraform templates used for provisioning AWS resources to deploy a multi-tier Dockerized API service.
 
 **A high-level architecture diagram of the project**
+![Project_architecture_final_v2](https://github.com/abhi13singh/cloudeng-aevi-terraform-project/assets/159575057/a7958c92-aa58-4c49-b869-f03609f75c8e)
 
 
 In this project, terraform templates have been created to design and implement a secure and scalable infrastructure to expose a Dockerized API service.
