@@ -2,7 +2,7 @@
 A set of Terraform templates used for provisioning a multi-tier Dockerized API service stacks on AWS ECS Fargate.
 
 **A high-level architecture diagram of the project**
-![alt text](Project_architecture_final_v2.gif)
+![alt text](Project_architecture_final_v2-1.gif)
 
 In this project, terraform templates have been created to design and implement a secure and scalable infrastructure to expose a Dockerized API service.
 
